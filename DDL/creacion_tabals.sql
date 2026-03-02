@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS InmobiliariaDB;
+CREATE DATABASE InmobiliariaDB;
 USE InmobiliariaDB;
 
 CREATE TABLE Tipos_Propiedad (
@@ -16,15 +16,16 @@ CREATE TABLE Clientes (
     nombre VARCHAR(100) NOT NULL,
     identificacion VARCHAR(20) NOT NULL UNIQUE,
     telefono VARCHAR(20),
-    email VARCHAR(100),
+    email VARCHAR(100), 
     direccion_residencia VARCHAR(255),
-    INDEX (identificacion)
+    INDEX idx_cliente_dni (identificacion)
 );
 
 CREATE TABLE Agentes (
     id_agente INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     identificacion VARCHAR(20) NOT NULL UNIQUE,
+    email VARCHAR(100),
     porcentaje_comision DECIMAL(5,2) DEFAULT 3.00
 );
 
@@ -37,8 +38,7 @@ CREATE TABLE Propiedades (
     id_estado INT,
     FOREIGN KEY (id_tipo) REFERENCES Tipos_Propiedad(id_tipo),
     FOREIGN KEY (id_estado) REFERENCES Estados_Propiedad(id_estado),
-    -- ÍNDICE DE OPTIMIZACIÓN: Para buscar propiedades disponibles rápido
-    INDEX idx_estado (id_estado) 
+    INDEX idx_prop_estado (id_estado) 
 );
 
 CREATE TABLE Contratos (
@@ -52,9 +52,8 @@ CREATE TABLE Contratos (
     FOREIGN KEY (id_propiedad) REFERENCES Propiedades(id_propiedad),
     FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente),
     FOREIGN KEY (id_agente) REFERENCES Agentes(id_agente),
-    -- ÍNDICES DE OPTIMIZACIÓN
-    INDEX idx_tipo_contrato (tipo_contrato),
-    INDEX idx_cliente_contrato (id_cliente)
+    INDEX idx_contrato_tipo (tipo_contrato), 
+    INDEX idx_contrato_cliente (id_cliente) 
 );
 
 CREATE TABLE Pagos (
@@ -64,8 +63,7 @@ CREATE TABLE Pagos (
     monto_pagado DECIMAL(15,2) NOT NULL,
     concepto VARCHAR(100),
     FOREIGN KEY (id_contrato) REFERENCES Contratos(id_contrato),
-    -- ÍNDICE DE OPTIMIZACIÓN: Para calcular deudas velozmente
-    INDEX idx_pago_contrato (id_contrato)
+    INDEX idx_pago_contrato (id_contrato) 
 );
 
 CREATE TABLE Auditoria_Propiedades (

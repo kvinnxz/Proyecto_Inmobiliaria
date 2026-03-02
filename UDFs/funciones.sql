@@ -18,8 +18,9 @@ BEGIN
     
     RETURN v_resultado;
 END //
+DELIMITER //
 
-
+DELIMITER //
 CREATE FUNCTION fn_deuda_pendiente(p_id_contrato INT) 
 RETURNS DECIMAL(15,2)
 DETERMINISTIC
@@ -40,8 +41,10 @@ BEGIN
     
     RETURN v_deuda;
 END //
+DELIMITER //
 
 
+DELIMITER //
 CREATE FUNCTION fn_total_disponibles_por_tipo(p_id_tipo INT) 
 RETURNS INT
 DETERMINISTIC

@@ -21,7 +21,9 @@ BEGIN
         );
     END IF;
 END //
+DELIMITER //
 
+DELIMITER //
 CREATE TRIGGER tr_audit_nuevo_contrato
 AFTER INSERT ON Contratos
 FOR EACH ROW
@@ -39,8 +41,9 @@ BEGIN
         USER()
     );
 END //
+DELIMITER //
 
-
+DELIMITER //
 CREATE TRIGGER tr_auto_actualizar_estado
 AFTER INSERT ON Contratos
 FOR EACH ROW
@@ -53,5 +56,4 @@ BEGIN
         WHERE id_propiedad = NEW.id_propiedad;
     END IF;
 END //
-
 DELIMITER ;
