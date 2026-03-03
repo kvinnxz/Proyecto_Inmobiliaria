@@ -72,7 +72,8 @@ CREATE TABLE Auditoria_Propiedades (
     estado_anterior VARCHAR(50),
     estado_nuevo VARCHAR(50),
     fecha_cambio DATETIME DEFAULT CURRENT_TIMESTAMP,
-    usuario_que_cambio VARCHAR(50)
+    usuario_que_cambio VARCHAR(50),
+    FOREIGN KEY (id_propiedad) REFERENCES Propiedades(id_propiedad)
 );
 
 CREATE TABLE Reportes_Pendientes (
@@ -80,5 +81,6 @@ CREATE TABLE Reportes_Pendientes (
     mes_año VARCHAR(20),
     id_contrato INT,
     monto_deuda DECIMAL(15,2),
-    fecha_generacion DATETIME DEFAULT CURRENT_TIMESTAMP
+    fecha_generacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_contrato) REFERENCES Contratos(id_contrato)
 );
